@@ -1,36 +1,71 @@
-name: Node.js CI
+Skip to content
+Navigation Menu
+ANNA-BOT
 
+Code
+Pull requests
+Commit 237634d
+AshishVerma340
+AshishVerma340
+authored
+48 minutes ago
+·
+·
+Verified
+Create deno.yml
+main
+1 parent 
+82642cd
+ commit 
+237634d
+1 file changed
++42
+-0
+lines changed
+Search within code
+ 
+‎.github/workflows/deno.yml
++42
+Lines changed: 42 additions & 0 deletions
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,42 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will install Deno then run `deno lint` and `deno test`.
+# For more information see: https://github.com/denoland/setup-deno
+name: Deno
 on:
   push:
-    branches: [main]
+    branches: ["main"]
   pull_request:
-    branches: [main]
-
+    branches: ["main"]
+permissions:
+  contents: read
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [20.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    # Step to check out the repository code
-    - uses: actions/checkout@v2
+      - name: Setup repo
+        uses: actions/checkout@v4
+      - name: Setup Deno
+        # uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31  # v1.1.2
+        with:
+          deno-version: v1.x
+      # Uncomment this step to verify the use of 'deno fmt' on each commit.
+      # - name: Verify formatting
+      #   run: deno fmt --check
+      - name: Run linter
+        run: deno lint
+      - name: Run tests
+        run: deno test -A
+0 commit comments
+Comments
+0
+ (0)
+Comment
+You're not receiving notifications from this thread.
 
-    # Step to set up the specified Node.js version
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    # Step to install dependencies
-    - name: Install dependencies
-      run: npm install
-
-    # Step to run the bot with the correct port
-    - name: Start the bot
-      env:
-        PORT: 8080
-      run: npm start
+Create deno.yml · AshishVerma340/ANNA-BOT@237634d
